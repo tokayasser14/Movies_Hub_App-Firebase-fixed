@@ -25,7 +25,7 @@ class WatchlistCubit extends Cubit<WatchlistState> {
     _subscription = FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
-        .collection('favorites')
+        .collection('watchlist')
         .snapshots()
         .listen((snapshot) {
           _watchlistMovies
@@ -48,7 +48,7 @@ class WatchlistCubit extends Cubit<WatchlistState> {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
-        .collection('favorites')
+        .collection('watchlist')
         .doc(movie.id.toString())
         .set(movie.toMap());
   }
@@ -59,7 +59,7 @@ class WatchlistCubit extends Cubit<WatchlistState> {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
-        .collection('favorites')
+        .collection('watchlist')
         .doc(movie.id.toString())
         .delete();
   }
