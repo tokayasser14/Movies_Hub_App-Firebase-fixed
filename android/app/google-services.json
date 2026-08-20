@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "993310732978",
+    "project_id": "movie-hub-b57d9",
+    "storage_bucket": "movie-hub-b57d9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993310732978:android:79c6791c109a56eea10fab",
+        "android_client_info": {
+          "package_name": "com.example.movies_hub_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993310732978-ngf6l1m8c47sp12mipaf2gc9te0ft1en.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3rhFFeUImtYeKJlq0ojTuh2jILPof_0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993310732978-ngf6l1m8c47sp12mipaf2gc9te0ft1en.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "993310732978-tinc1ki8d05aka1rfctc4qttl8b1rs87.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.moviesHubApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
