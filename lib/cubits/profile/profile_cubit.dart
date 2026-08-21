@@ -57,38 +57,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     });
   }
 
-  Future<void> updateUserData({
-    required String newName,
-    required String newEmail,
-    required String newPhone,
-    required String newPassword,
-  }) async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
-    try {
-      if (newEmail != user.email) {
-        await user.verifyBeforeUpdateEmail(newEmail);
-      }
-      if (newPassword.isNotEmpty) await user.updatePassword(newPassword);
-      await user.updateDisplayName(newName);
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'name': newName,
-        'email': newEmail,
-        'phone': newPhone,
-      }, SetOptions(merge: true));
-    } on FirebaseAuthException catch (error) {
-      emit(
-        ProfileError(
-          error.code == 'requires-recent-login'
-              ? 'Please sign out and sign in again before changing email or password.'
-              : error.message ?? 'Failed to update profile.',
-        ),
-      );
-    } catch (_) {
-      emit(ProfileError('Failed to update profile.'));
-    }
-  }
-
   bool isFavorite(Movie movie) {
     return _favoriteMovies.any((item) => item.id == movie.id);
   }
@@ -104,7 +72,6 @@ class ProfileCubit extends Cubit<ProfileState> {
         .set(movie.toMap());
   }
 
-  // 🔴 دالة حذف الفيلم من المفضلة في Firestore
   Future<void> removeFromFavorites(Movie movie) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -115,13 +82,11 @@ class ProfileCubit extends Cubit<ProfileState> {
           .collection('favorites')
           .doc(movie.id.toString())
           .delete();
-      // الـ _favoritesSubscription المستمع بالـ Snapshots سيتولى تحديث الـ State تلقائياً
     } catch (_) {
       emit(ProfileError('Failed to remove movie from favorites.'));
     }
   }
 
-  // 🔄 دالة التبديل (إضافة/حذف)
   Future<void> toggleFavorite(Movie movie) async {
     if (isFavorite(movie)) {
       await removeFromFavorites(movie);

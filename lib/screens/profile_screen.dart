@@ -81,7 +81,11 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
 
+<<<<<<< HEAD
                         //edit profile
+=======
+                        //edit profile button
+>>>>>>> 35c5f8aa1ea0eb58d609a468c026a1032e4c2199
                         OutlinedButton.icon(
                           onPressed: () {
                             Navigator.push(
@@ -182,7 +186,7 @@ class ProfileScreen extends StatelessWidget {
                                       ),
                                     ),
 
-                                    // أيقونة الحذف من المفضلة فوق الكارت
+                                    // favorite icon  
                                     Positioned(
                                       top: 6,
                                       right: 6,

@@ -5,6 +5,7 @@ import 'cubits/auth/auth_cubit.dart';
 import 'cubits/home/home_cubit.dart';
 import 'screens/splash_screen.dart';
 import 'cubits/profile/profile_cubit.dart';
+import 'cubits/edit-profile/edit_profile_cubit.dart';
 import 'cubits/watchlist/watchlist_cubit.dart';
 import 'firebase_options.dart';
 import 'cubits/theme_cubit.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<HomeCubit>(create: (context) => HomeCubit()),
         BlocProvider<ProfileCubit>(create: (context) => ProfileCubit()),
+        BlocProvider<EditProfileCubit>(create: (context) => EditProfileCubit()),
         BlocProvider<WatchlistCubit>(create: (context) => WatchlistCubit()),
         BlocProvider<AuthCubit>(create: (context) => AuthCubit()),
         BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
