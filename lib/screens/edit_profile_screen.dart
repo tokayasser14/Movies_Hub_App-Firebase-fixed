@@ -46,7 +46,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
 
-  void saveChanges() async{
+  void saveChanges() async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     String phone = phoneController.text.trim();
@@ -60,9 +60,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
 
     if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your email')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please enter your email')));
       return;
     }
 
@@ -107,13 +107,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       return;
     }
 
-    // تحديث البيانات في الـ ProfileCubit والعودة للشاشة السابقة
-   await context.read<ProfileCubit>().updateUserData(
-          newName: username,
-          newEmail: email,
-          newPhone: phone,
-          newPassword: password,
-        );
+    await context.read<ProfileCubit>().updateUserData(
+      newName: username,
+      newEmail: email,
+      newPhone: phone,
+      newPassword: password,
+    );
 
     Navigator.pop(context);
   }
@@ -121,20 +120,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121011),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
           'Edit Profile',
-          style: TextStyle(
-            color: Color(0xFFF52B3B),
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -147,10 +142,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               // 1. User Name Field
               TextField(
                 controller: usernameController,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                ),
+                style: const TextStyle(fontSize: 15),
                 decoration: InputDecoration(
                   hintText: 'User Name',
                   hintStyle: const TextStyle(
@@ -159,12 +151,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(
-                      color: Color(0xFF2D2B2D),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).dividerColor,
                     ),
                   ),
                   filled: true,
-                  fillColor: const Color(0xFF121011),
+                  fillColor: Theme.of(context).cardColor,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 14,
@@ -177,10 +169,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               // 2. Email Field
               TextField(
                 controller: emailController,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                ),
+                style: const TextStyle(fontSize: 15),
                 decoration: InputDecoration(
                   hintText: 'E-mail',
                   hintStyle: const TextStyle(
@@ -189,12 +178,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(
-                      color: Color(0xFF2D2B2D),
-                    ),
+                    borderSide: const BorderSide(color: Color(0xFF2D2B2D)),
                   ),
                   filled: true,
-                  fillColor: const Color(0xFF121011),
+                  fillColor: Theme.of(context).cardColor,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 14,
@@ -208,10 +195,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               TextField(
                 controller: phoneController,
                 maxLength: 11,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                ),
+                style: const TextStyle( fontSize: 15),
                 decoration: InputDecoration(
                   hintText: 'Phone Number',
                   hintStyle: const TextStyle(
@@ -220,12 +204,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(
-                      color: Color(0xFF2D2B2D),
-                    ),
+                   borderSide: BorderSide(color: Theme.of(context).dividerColor),
                   ),
                   filled: true,
-                  fillColor: const Color(0xFF121011),
+                  fillColor: Theme.of(context).cardColor,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 14,
@@ -239,10 +221,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               TextField(
                 controller: passwordController,
                 obscureText: !isPasswordVisible,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                ),
+                style: const TextStyle( fontSize: 15),
                 decoration: InputDecoration(
                   hintText: 'Password',
                   hintStyle: const TextStyle(
@@ -251,12 +230,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(
-                      color: Color(0xFF2D2B2D),
-                    ),
+                    borderSide: BorderSide(color: Theme.of(context).dividerColor),
                   ),
                   filled: true,
-                  fillColor: const Color(0xFF121011),
+                  fillColor: Theme.of(context).cardColor,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 14,

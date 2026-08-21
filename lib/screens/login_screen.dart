@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFF121011),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(40),
@@ -50,16 +50,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.black
+                        : Colors.white,
                   ),
                 ),
                 SizedBox(height: 20),
                 TextField(
                   controller: emailController,
-                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.black
+                        : Colors.white,
+                    fontSize: 15,
+                  ),
                   decoration: InputDecoration(
                     hintText: 'E-mail',
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: Color(0xFF939392),
                       fontSize: 12,
                     ),
@@ -68,7 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderSide: BorderSide(color: Color(0xFF2D2B2D)),
                     ),
                     filled: true,
-                    fillColor: Color(0xFF121011),
+                    fillColor: Theme.of(context).brightness == Brightness.light
+                        ? Colors.grey[200]
+                        : const Color(0xFF121011),
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 14,
@@ -79,7 +88,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextField(
                   controller: passwordController,
                   obscureText: !isPasswordVisible,
-                  style: const TextStyle(color: Colors.white, fontSize: 15),
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.black
+                        : Colors.white,
+                    fontSize: 15,
+                  ),
                   decoration: InputDecoration(
                     hintText: 'Password',
                     hintStyle: const TextStyle(
@@ -91,7 +105,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderSide: const BorderSide(color: Color(0xFF2D2B2D)),
                     ),
                     filled: true,
-                    fillColor: const Color(0xFF121011),
+                    fillColor: Theme.of(context).brightness == Brightness.light
+                        ? Colors.grey[200]
+                        : const Color(0xFF121011),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 14,
@@ -112,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
 
-                SizedBox(height: 59),
+                SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -145,13 +161,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 // SizedBox(height: 10,),
                 // Image.asset("assets/Frame 54.png",width: double.infinity,),
-                SizedBox(height: 50),
+                SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don’t you have an account?",
-                      style: TextStyle(fontSize: 15, color: Color(0xFF939392)),
+                      "Don't have an account? ",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Colors.grey[700]
+                            : const Color(0xFF939392),
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -162,14 +183,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Sign Up',
-                        style: TextStyle(color: Colors.white, fontSize: 12),
+                        style: TextStyle(
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                              ? Colors.black
+                              : Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 30),
               ],
             ),

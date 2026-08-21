@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -42,10 +42,10 @@ class ProfileScreen extends StatelessWidget {
             );
           } else if (state is ProfileSuccess) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 8.0,
-              ),
+             padding: const EdgeInsets.symmetric(
+  horizontal: 16.0,
+  vertical: 16.0, 
+),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -55,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 45,
-                          backgroundColor: const Color(0xFFE50914),
+                          backgroundColor: Colors.red,
                           child: Text(
                             state.userName.trim().isNotEmpty
                                 ? state.userName.trim()[0].toUpperCase()
@@ -70,15 +70,18 @@ class ProfileScreen extends StatelessWidget {
                         const SizedBox(height: 12),
                         Text(
                           state.userName,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                ? Colors.black
+                                : Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 16),
 
-                        //edit profile 
+                        //edit profile
                         OutlinedButton.icon(
                           onPressed: () {
                             Navigator.push(
@@ -93,14 +96,23 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             );
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.edit,
                             size: 16,
-                            color: Colors.white,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                ? Colors.black
+                                : Colors.white,
                           ),
-                          label: const Text(
+                          label: Text(
                             "Edit Profile",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
+                            ),
                           ),
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Colors.grey),
@@ -113,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 24),
 
                   const Text(
                     'Favourites',
@@ -123,7 +135,7 @@ class ProfileScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
 
                   SizedBox(
                     height: 160,
@@ -180,11 +192,13 @@ class ProfileScreen extends StatelessWidget {
                                               .read<ProfileCubit>()
                                               .removeFromFavorites(movie);
 
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
                                             const SnackBar(
                                               content: Text(
-                                                  'Removed from Favourites'),
+                                                'Removed from Favourites',
+                                              ),
                                               duration: Duration(seconds: 1),
                                             ),
                                           );
@@ -210,7 +224,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                   ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 24),
 
                   //Signout Button
                   SizedBox(
@@ -231,7 +245,10 @@ class ProfileScreen extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1E1E1E),
+                        backgroundColor:
+                            Theme.of(context).brightness == Brightness.light
+                            ? Colors.grey[200]
+                            : const Color(0xFF1E1E1E),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                           side: const BorderSide(color: Colors.red, width: 1),

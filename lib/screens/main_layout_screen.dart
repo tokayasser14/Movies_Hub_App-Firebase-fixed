@@ -37,10 +37,12 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
             _currentIndex = index;
           });
         },
-        backgroundColor: const Color(0xFF121212),
+        backgroundColor: Theme.of(context).cardColor,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFFFF2D55),
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Theme.of(context).brightness == Brightness.light
+            ? Colors.grey[600]
+            : Colors.grey,
         showUnselectedLabels: true,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

@@ -37,10 +37,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         : 'https://image.tmdb.org/t/p/w500${widget.movie.posterPath}';
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0F111D),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
-          // 1. صورة خلفية الفيلم
           Positioned.fill(
             child: Image.network(
               imageUrl,

@@ -24,9 +24,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF121212),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         title: const Text(
           'Search Movies',
@@ -43,13 +43,21 @@ class _SearchScreenState extends State<SearchScreen> {
           children: [
             TextField(
               controller: _searchController,
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,
+              ),
               onChanged: (query) {
                 context.read<SearchCubit>().searchMovies(query);
               },
               decoration: InputDecoration(
                 hintText: 'Search for a movie...',
-                hintStyle: TextStyle(color: Colors.grey[500]),
+                hintStyle: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.grey[600]
+                      : Colors.grey[500],
+                ),
                 prefixIcon: const Icon(Icons.search, color: Color(0xFFFF2D55)),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.clear, color: Colors.grey),
@@ -59,7 +67,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                 ),
                 filled: true,
-                fillColor: const Color(0xFF121212),
+                fillColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.grey[200]
+                    : const Color(0xFF121212),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,

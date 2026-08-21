@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_hub_app/cubits/theme_cubit.dart';
 import '../cubits/home/home_cubit.dart';
 import '../models/movie.dart';
 import '../widgets/movie_card.dart';
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -34,6 +35,18 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 22,
           ),
         ),
+        actions: [
+    IconButton(
+      icon: Icon(
+        context.watch<ThemeCubit>().state == ThemeMode.dark
+            ? Icons.light_mode
+            : Icons.dark_mode,
+      ),
+      onPressed: () {
+        context.read<ThemeCubit>().toggleTheme();
+      },
+    ),
+  ],
       ),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
@@ -62,17 +75,15 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Popular Movies',
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 12),
 
-                  // GridView بدلاً من ListView لعرض فيلمين بالصف بشكل طولي
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

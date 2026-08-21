@@ -27,7 +27,9 @@ class MovieCard extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFF1E1E1E),
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.grey[200]
+              : const Color(0xFF1E1E1E),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -71,11 +73,7 @@ class MovieCard extends StatelessWidget {
                     title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                   ),
                   const SizedBox(height: 4),
                   Row(
@@ -84,8 +82,11 @@ class MovieCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         rating.toStringAsFixed(1),
-                        style: const TextStyle(
-                          color: Colors.grey,
+                        style: TextStyle(
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                              ? Colors.grey[700]
+                              : Colors.grey[400],
                           fontSize: 12,
                         ),
                       ),

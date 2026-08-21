@@ -9,26 +9,32 @@ class WatchlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF121212),
-        title: const Text('Watchlist',
-         style: TextStyle(
-          color: Colors.red,
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-          )
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: const Text(
+          'Watchlist',
+          style: TextStyle(
+            color: Colors.red,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
           ),
+        ),
       ),
       body: BlocBuilder<WatchlistCubit, WatchlistState>(
         builder: (context, state) {
           final watchlist = context.read<WatchlistCubit>().watchlistMovies;
 
           if (watchlist.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
                 'No movies added yet',
-                style: TextStyle(color: Colors.white70, fontSize: 16),
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.black87
+                      : Colors.white70,
+                  fontSize: 16,
+                ),
               ),
             );
           }
@@ -55,8 +61,10 @@ class WatchlistScreen extends StatelessWidget {
                 ),
                 title: Text(
                   movie.name,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.black
+                        : Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
