@@ -47,75 +47,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
 
-  void saveChanges() async {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
-    String phone = phoneController.text.trim();
-    String username = usernameController.text.trim();
-
-    if (username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your username')),
-      );
-      return;
-    }
-
-    if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your email')),
-      );
-      return;
-    }
-
-    if (!email.contains('@') || !email.endsWith('.com')) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a valid email address')),
-      );
-      return;
-    }
-
-    if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your password')),
-      );
-      return;
-    }
-
-    if (phone.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your phone number')),
-      );
-      return;
-    }
-
-    if (username.length > 20) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('User name must not exceed 20 characters.'),
-        ),
-      );
-      return;
-    }
-
-    if (phone.length != 11 ||
-        (!phone.startsWith('011') &&
-            !phone.startsWith('012') &&
-            !phone.startsWith('015') &&
-            !phone.startsWith('010'))) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please Enter a Valid Phone Number')),
-      );
-      return;
-    }
-
-    await context.read<EditProfileCubit>().updateUserData(
-          newName: username,
-          newEmail: email,
-          newPhone: phone,
-          newPassword: password,
-        );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,7 +56,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         elevation: 0,
         title: const Text(
           'Edit Profile',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.red),
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.red,
+          ),
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -139,9 +74,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               SnackBar(
                 content: Text(
                   state.errorMessage,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.black),
                 ),
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.white,
               ),
             );
           } else if (state is EditProfileSuccess) {
@@ -149,9 +84,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SnackBar(
                 content: Text(
                   'Profile updated successfully!',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 ),
-                backgroundColor: Colors.green,
+                backgroundColor: Colors.white,
               ),
             );
             Navigator.pop(context);
@@ -176,6 +111,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     borderSide: BorderSide(
                       color: Theme.of(context).dividerColor,
                     ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Color(0xFFF52B3B)),
                   ),
                   filled: true,
                   fillColor: Theme.of(context).cardColor,
@@ -202,6 +141,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     borderSide: BorderSide(
                       color: Theme.of(context).dividerColor,
                     ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Color(0xFFF52B3B)),
                   ),
                   filled: true,
                   fillColor: Theme.of(context).cardColor,
@@ -230,6 +173,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       color: Theme.of(context).dividerColor,
                     ),
                   ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Color(0xFFF52B3B)),
+                  ),
                   filled: true,
                   fillColor: Theme.of(context).cardColor,
                   contentPadding: const EdgeInsets.symmetric(
@@ -256,6 +203,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     borderSide: BorderSide(
                       color: Theme.of(context).dividerColor,
                     ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Color(0xFFF52B3B)),
                   ),
                   filled: true,
                   fillColor: Theme.of(context).cardColor,
@@ -294,7 +245,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     }
 
                     return ElevatedButton(
-                      onPressed: saveChanges,
+                      onPressed: () {
+                        context.read<EditProfileCubit>().updateUserData(
+                              newName: usernameController.text.trim(),
+                              newEmail: emailController.text.trim(),
+                              newPhone: phoneController.text.trim(),
+                              newPassword: passwordController.text.trim(),
+                            );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFF52B3B),
                         shape: RoundedRectangleBorder(

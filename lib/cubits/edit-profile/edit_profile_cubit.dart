@@ -12,7 +12,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     required String newPhone,
     required String newPassword,
   }) async {
-    // 1. Validation Logic
+    // Validations
     if (newName.isEmpty) {
       emit(EditProfileFailure('Please enter your username'));
       return;
