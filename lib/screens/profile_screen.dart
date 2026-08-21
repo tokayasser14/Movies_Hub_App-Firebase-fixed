@@ -49,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 1. صورة البروفايل (أول حرف) + الاسم
+                  //username & avatar
                   Center(
                     child: Column(
                       children: [
@@ -78,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
 
-                        //switch to edit profile
+                        //edit profile 
                         OutlinedButton.icon(
                           onPressed: () {
                             Navigator.push(
@@ -141,6 +141,7 @@ class ProfileScreen extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             itemCount: state.favouriteMovies.length,
                             itemBuilder: (context, index) {
+                              final movie = state.favouriteMovies[index];
                               return Container(
                                 width: 110,
                                 margin: const EdgeInsets.only(right: 12),
@@ -148,25 +149,61 @@ class ProfileScreen extends StatelessWidget {
                                   color: const Color(0xFF1E1E1E),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    state.favouriteMovies[index].posterPath
-                                            .startsWith('http')
-                                        ? state
-                                              .favouriteMovies[index]
-                                              .posterPath
-                                        : 'https://image.tmdb.org/t/p/w500${state.favouriteMovies[index].posterPath}',
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    errorBuilder: (_, _, _) => const Center(
-                                      child: Icon(
-                                        Icons.movie,
-                                        color: Colors.grey,
-                                        size: 40,
+                                child: Stack(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        movie.posterPath.startsWith('http')
+                                            ? movie.posterPath
+                                            : 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        errorBuilder: (_, _, _) => const Center(
+                                          child: Icon(
+                                            Icons.movie,
+                                            color: Colors.grey,
+                                            size: 40,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
+
+                                    // أيقونة الحذف من المفضلة فوق الكارت
+                                    Positioned(
+                                      top: 6,
+                                      right: 6,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          context
+                                              .read<ProfileCubit>()
+                                              .removeFromFavorites(movie);
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  'Removed from Favourites'),
+                                              duration: Duration(seconds: 1),
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(4),
+                                          decoration: BoxDecoration(
+                                            color: const Color(0x99000000),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: const Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                            size: 18,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               );
                             },

@@ -10,7 +10,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   StreamSubscription<DocumentSnapshot<Map<String, dynamic>>>? _userSubscription;
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>?
-  _favoritesSubscription;
+      _favoritesSubscription;
   List<Movie> _favoriteMovies = [];
 
   void fetchProfileData() {
@@ -25,6 +25,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     final document = FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid);
+
     _userSubscription = document.snapshots().listen((snapshot) {
       final data = snapshot.data() ?? {};
       emit(
@@ -37,22 +38,23 @@ class ProfileCubit extends Cubit<ProfileState> {
         ),
       );
     }, onError: (_) => emit(ProfileError('Failed to load profile data.')));
+
     _favoritesSubscription = document
         .collection('favorites')
         .snapshots()
         .listen((snapshot) {
-          _favoriteMovies = snapshot.docs
-              .map((doc) => Movie.fromMap(doc.data()))
-              .toList();
-          final current = state;
-          if (current is ProfileSuccess) {
-            emit(
-              current.copyWith(
-                favouriteMovies: List.unmodifiable(_favoriteMovies),
-              ),
-            );
-          }
-        });
+      _favoriteMovies = snapshot.docs
+          .map((doc) => Movie.fromMap(doc.data()))
+          .toList();
+      final current = state;
+      if (current is ProfileSuccess) {
+        emit(
+          current.copyWith(
+            favouriteMovies: List.unmodifiable(_favoriteMovies),
+          ),
+        );
+      }
+    });
   }
 
   Future<void> updateUserData({
@@ -86,7 +88,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(ProfileError('Failed to update profile.'));
     }
   }
-    bool isFavorite(Movie movie) {
+
+  bool isFavorite(Movie movie) {
     return _favoriteMovies.any((item) => item.id == movie.id);
   }
 
@@ -101,15 +104,30 @@ class ProfileCubit extends Cubit<ProfileState> {
         .set(movie.toMap());
   }
 
+  // 🔴 دالة حذف الفيلم من المفضلة في Firestore
   Future<void> removeFromFavorites(Movie movie) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .collection('favorites')
-        .doc(movie.id.toString())
-        .delete();
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('favorites')
+          .doc(movie.id.toString())
+          .delete();
+      // الـ _favoritesSubscription المستمع بالـ Snapshots سيتولى تحديث الـ State تلقائياً
+    } catch (_) {
+      emit(ProfileError('Failed to remove movie from favorites.'));
+    }
+  }
+
+  // 🔄 دالة التبديل (إضافة/حذف)
+  Future<void> toggleFavorite(Movie movie) async {
+    if (isFavorite(movie)) {
+      await removeFromFavorites(movie);
+    } else {
+      await addToFavorites(movie);
+    }
   }
 
   @override

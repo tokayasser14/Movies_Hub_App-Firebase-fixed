@@ -12,8 +12,13 @@ class WatchlistScreen extends StatelessWidget {
       backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
         backgroundColor: const Color(0xFF121212),
-        title: const Text('Watchlist', style: TextStyle(color: Colors.white)),
-        centerTitle: true,
+        title: const Text('Watchlist',
+         style: TextStyle(
+          color: Colors.red,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          )
+          ),
       ),
       body: BlocBuilder<WatchlistCubit, WatchlistState>(
         builder: (context, state) {
