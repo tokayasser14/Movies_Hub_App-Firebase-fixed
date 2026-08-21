@@ -6,6 +6,8 @@ import '../models/comment.dart';
 import '../models/movie_model.dart';
 import '../cubits/watchlist/watchlist_cubit.dart';
 import '../cubits/watchlist/watchlist_state.dart';
+import '../cubits/profile/profile_state.dart';
+import '../cubits/profile/profile_cubit.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final Movie movie;
@@ -56,8 +58,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.2),
-                    Colors.black.withOpacity(0.85),
+                    Colors.black.withValues(alpha: 0.2),
+                    Colors.black.withValues(alpha: 0.85),
                     const Color(0xFF0F111D),
                   ],
                   stops: const [0.0, 0.6, 1.0],
@@ -190,37 +192,51 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     },
                   ),
                   const SizedBox(height: 30),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFF2B57),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Buy tickets',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                    BlocBuilder<ProfileCubit, ProfileState>(
+                    builder: (context, state) {
+                      final cubit = context.read<ProfileCubit>();
+                      final isFav = cubit.isFavorite(widget.movie);
+                      return SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFFF2B57),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
                             ),
                           ),
-                          SizedBox(width: 8),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                            size: 16,
+                          onPressed: () {
+                            if (isFav) {
+                              cubit.removeFromFavorites(widget.movie);
+                            } else {
+                              cubit.addToFavorites(widget.movie);
+                            }
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                isFav
+                                    ? 'Remove from favourite'
+                                    : 'Add to favourite',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 40),
                 ],
@@ -247,6 +263,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       ),
                       onPressed: () => Navigator.pop(context),
                     ),
+                    
                     BlocBuilder<WatchlistCubit, WatchlistState>(
                       builder: (context, state) {
                         final cubit = context.read<WatchlistCubit>();
@@ -284,7 +301,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.08),
+        color: Colors.white.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
