@@ -25,7 +25,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     super.initState();
     final service = Service();
     _trailerFuture = service.gettrailer(widget.movie.id);
-    _commentsFuture = service.getComments_movie(widget.movie.id);
+    _commentsFuture = service.getComments(widget.movie.id);
   }
 
   @override
