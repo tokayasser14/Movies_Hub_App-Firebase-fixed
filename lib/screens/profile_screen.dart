@@ -42,10 +42,10 @@ class ProfileScreen extends StatelessWidget {
             );
           } else if (state is ProfileSuccess) {
             return SingleChildScrollView(
-             padding: const EdgeInsets.symmetric(
-  horizontal: 16.0,
-  vertical: 16.0, 
-),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 16.0,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -81,11 +81,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
 
-<<<<<<< HEAD
                         //edit profile
-=======
-                        //edit profile button
->>>>>>> 35c5f8aa1ea0eb58d609a468c026a1032e4c2199
                         OutlinedButton.icon(
                           onPressed: () {
                             Navigator.push(
@@ -185,8 +181,7 @@ class ProfileScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-
-                                    // favorite icon  
+                                    
                                     Positioned(
                                       top: 6,
                                       right: 6,

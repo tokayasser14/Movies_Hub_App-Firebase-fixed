@@ -49,7 +49,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             ),
           ),
 
-          // 2. تدرج أسود خفيف لتوضيح النصوص ومنع الاحمرار
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -67,7 +66,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             ),
           ),
 
-          // 3. المحتوى الرئيسي
           Positioned.fill(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -243,7 +241,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             ),
           ),
 
-          // 4. أزرار أعلى الشاشة (الرجوع والـ Bookmark)
           Positioned(
             top: 0,
             left: 0,

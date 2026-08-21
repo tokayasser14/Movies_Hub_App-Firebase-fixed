@@ -11,7 +11,6 @@ class WatchlistCubit extends Cubit<WatchlistState> {
   final List<Movie> _watchlistMovies = [];
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _subscription;
 
-  // Getter لإتاحة الوصول للقائمة
   List<Movie> get watchlistMovies => List.unmodifiable(_watchlistMovies);
 
   void fetchWatchlist() {

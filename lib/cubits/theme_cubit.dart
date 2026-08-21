@@ -6,10 +6,9 @@ class ThemeCubit extends Cubit<ThemeMode> {
   static const String _themeKey = 'is_dark_mode';
 
   ThemeCubit() : super(ThemeMode.dark) {
-    _loadThemeFromPrefs(); // تحميل الوضع المحفوظ عند بداية التطبيق
-  }
-
-  // تبديل الثيم وحفظ الحالة الجديدة
+    _loadThemeFromPrefs(); 
+    }
+  
   Future<void> toggleTheme() async {
     final newMode = state == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
     emit(newMode);
@@ -18,10 +17,9 @@ class ThemeCubit extends Cubit<ThemeMode> {
     await prefs.setBool(_themeKey, newMode == ThemeMode.dark);
   }
 
-  // قراءة الحالة المحفوظة في الموبايل
   Future<void> _loadThemeFromPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    final isDark = prefs.getBool(_themeKey) ?? true; // الافتراضي Dark
+    final isDark = prefs.getBool(_themeKey) ?? true; 
     emit(isDark ? ThemeMode.dark : ThemeMode.light);
   }
 }

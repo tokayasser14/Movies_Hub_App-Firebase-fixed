@@ -159,8 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                 ),
-                // SizedBox(height: 10,),
-                // Image.asset("assets/Frame 54.png",width: double.infinity,),
+               
                 SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

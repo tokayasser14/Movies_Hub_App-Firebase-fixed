@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_hub_app/models/movie.dart';
 import 'package:movies_hub_app/models/movie_model.dart';
 part 'home_state.dart';
 

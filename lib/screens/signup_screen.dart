@@ -318,8 +318,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     },
                   ),
                 ),
-                // SizedBox(height: 10,),
-                // Image.asset("assets/Frame 54.png",width: double.infinity,),
+      
                 SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
