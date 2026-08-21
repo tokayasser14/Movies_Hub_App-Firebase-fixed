@@ -5,6 +5,8 @@ class Movie {
   final String ReleaseDate;
   final double rating;
   final String posterPath;
+  final String? trailerUrl;
+  final String comment;
 
   String get title => name;
   String get image => posterPath;
@@ -16,6 +18,8 @@ class Movie {
     required this.ReleaseDate,
     required this.rating,
     required this.posterPath,
+    this.trailerUrl,
+    this.comment = '',
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
@@ -26,6 +30,8 @@ class Movie {
       ReleaseDate: json['release_date'] ?? '',
       rating: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
       posterPath: json['poster_path'] ?? '',
+      trailerUrl: json['trailer_url'] ?? null,
+      comment: json['comment'] ?? '',
     );
   }
 
@@ -37,6 +43,8 @@ class Movie {
       ReleaseDate: map['releaseDate'] as String? ?? '',
       rating: (map['rating'] as num?)?.toDouble() ?? 0.0,
       posterPath: map['posterPath'] as String? ?? '',
+      trailerUrl: map['trailerUrl'] as String? ?? null,
+      comment: map['comment'] as String? ?? '',
     );
   }
 
@@ -47,6 +55,8 @@ class Movie {
     'releaseDate': ReleaseDate,
     'rating': rating,
     'posterPath': posterPath,
+    'trailerUrl': trailerUrl,
+    'comment': comment,
   };
   @override
   bool operator ==(Object other) =>
