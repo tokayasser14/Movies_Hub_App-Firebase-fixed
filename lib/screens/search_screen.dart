@@ -31,8 +31,8 @@ class _SearchScreenState extends State<SearchScreen> {
         title: const Text(
           'Search Movies',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
+            color: Colors.red,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
         ),
