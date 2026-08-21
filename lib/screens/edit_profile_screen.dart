@@ -46,7 +46,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
 
-  void saveChanges() {
+  void saveChanges() async{
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     String phone = phoneController.text.trim();
@@ -108,7 +108,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
 
     // تحديث البيانات في الـ ProfileCubit والعودة للشاشة السابقة
-    context.read<ProfileCubit>().updateUserData(
+   await context.read<ProfileCubit>().updateUserData(
           newName: username,
           newEmail: email,
           newPhone: phone,
