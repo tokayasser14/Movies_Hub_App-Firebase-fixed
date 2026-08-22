@@ -96,7 +96,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // 1. Username Field
+              // Username
               TextField(
                 controller: usernameController,
                 style: const TextStyle(fontSize: 15),
@@ -126,7 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               const SizedBox(height: 16),
 
-              // 2. Email Field
+              // Email
               TextField(
                 controller: emailController,
                 style: const TextStyle(fontSize: 15),
@@ -156,7 +156,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               const SizedBox(height: 16),
 
-              // 3. Phone Field
+              // Phone
               TextField(
                 controller: phoneController,
                 maxLength: 11,
@@ -187,7 +187,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               const SizedBox(height: 16),
 
-              // 4. Password Field
+              // Password
               TextField(
                 controller: passwordController,
                 obscureText: !isPasswordVisible,
@@ -230,7 +230,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               const SizedBox(height: 32),
 
-              // Save Changes Button
+              // Save changes button
               SizedBox(
                 width: double.infinity,
                 height: 50,
