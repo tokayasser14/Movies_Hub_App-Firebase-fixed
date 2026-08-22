@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-
-@immutable
 abstract class ProfileState {}
 
 class ProfileInitial extends ProfileState {}
