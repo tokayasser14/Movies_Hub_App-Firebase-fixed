@@ -16,15 +16,15 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String fullImageUrl = posterPath.isNotEmpty
+    final String fullImageUrl = posterPath.isNotEmpty//لو ال Posterpath مش فاضي شوف الرابط فيه ال http ولا لا
         ? (posterPath.startsWith('http')
               ? posterPath
-              : 'https://image.tmdb.org/t/p/w500$posterPath')
-        : '';
+              : 'https://image.tmdb.org/t/p/w500$posterPath')//لو مش موجود اعمل انت المسار
+        : '';//لو فاضي خليها فاضي
 
     return GestureDetector(
       onTap: onTap,
-      behavior: HitTestBehavior.opaque,
+      behavior: HitTestBehavior.opaque,//اي مكان يستجيب للضغط
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).brightness == Brightness.light
@@ -38,15 +38,16 @@ class MovieCard extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(12),
+                  top: Radius.circular(12),//بضبط الصوره علي المقاس
                 ),
                 child: fullImageUrl.isNotEmpty
                     ? Image.network(
                         fullImageUrl,
-                        width: double.infinity,
+                        width: double.infinity,//الصوره بالكامل
+                        height: double.infinity,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) => Container(
-                          color: Colors.grey,
+                          color: Colors.grey,//لو في مشكله في الصوره بيحط شكل من عنده
                           child: Center(
                             child: Icon(
                               Icons.movie,
@@ -71,8 +72,8 @@ class MovieCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,//اسم الفيلم في سطر واحد حتي لو طويل
+                    overflow: TextOverflow.ellipsis,//لو طويل بنحط ...
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                   ),
                   const SizedBox(height: 4),
@@ -81,7 +82,7 @@ class MovieCard extends StatelessWidget {
                       const Icon(Icons.star, color: Colors.amber, size: 14),
                       const SizedBox(width: 4),
                       Text(
-                        rating.toStringAsFixed(1),
+                        rating.toStringAsFixed(1),//رقم عشريه واحده
                         style: TextStyle(
                           color:
                               Theme.of(context).brightness == Brightness.light

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/search/search_cubit.dart';
+import 'package:movies_hub_app/cubits/search/search_cubit.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
 import 'search_screen.dart';
@@ -20,7 +20,7 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
     const HomeScreen(),
     BlocProvider(
       create: (context) => SearchCubit(),
-      child: const SearchScreen(),
+      child: const SearchScreen(),//عشان اول ما تفتح تجيب الافلام
     ),
     const WatchlistScreen(),
     const ProfileScreen(),
@@ -38,19 +38,13 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
           });
         },
         backgroundColor: Theme.of(context).cardColor,
-        type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.red,
-        unselectedItemColor: Theme.of(context).brightness == Brightness.light
-            ? Colors.grey[600]
-            : Colors.grey,
+        unselectedItemColor: Colors.grey[600],
         showUnselectedLabels: true,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark),
-            label: 'Watchlist',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.bookmark),label: 'Watchlist'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),

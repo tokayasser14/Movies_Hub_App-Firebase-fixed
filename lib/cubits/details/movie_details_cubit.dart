@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'movie_details_state.dart';
-import '../../models/movie.dart';
 import '../../models/movie_model.dart';
 
 class MovieCubit extends Cubit<MovieState> {

@@ -1,4 +1,4 @@
-import '../../models/movie.dart';
+import 'package:movies_hub_app/models/movie.dart';
 
 abstract class SearchState {}
 
