@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/search/search_cubit.dart';
-import '../cubits/search/search_stare.dart';
-import '../widgets/movie_card.dart';
+import 'package:movies_hub_app/cubits/search/search_cubit.dart';
+import 'package:movies_hub_app/cubits/search/search_state.dart';
+import 'package:movies_hub_app/widgets/movie_card.dart';
 import 'movie_details_screen.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -13,13 +13,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();//متغير بيراقب الي بتكتب في  البحث
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +22,6 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0,
         title: const Text(
           'Search Movies',
           style: TextStyle(
@@ -48,7 +42,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ? Colors.black
                     : Colors.white,
               ),
-              onChanged: (query) {
+              onChanged: (query) {//ده الي بيخلي البحث يشتغل مع كل حرف بتكتب او يتمسح 
                 context.read<SearchCubit>().searchMovies(query);
               },
               decoration: InputDecoration(
@@ -58,21 +52,20 @@ class _SearchScreenState extends State<SearchScreen> {
                       ? Colors.grey[600]
                       : Colors.grey[500],
                 ),
-                prefixIcon: const Icon(Icons.search, color: Color(0xFFFF2D55)),
-                suffixIcon: IconButton(
+                prefixIcon: const Icon(Icons.search, color: Color(0xFFFF2D55)),//العدسه 
+                suffixIcon: IconButton(//ال x
                   icon: const Icon(Icons.clear, color: Colors.grey),
                   onPressed: () {
                     _searchController.clear();
                     context.read<SearchCubit>().clearSearch();
                   },
                 ),
-                filled: true,
+                filled: true,//نملا الخلفيه 
                 fillColor: Theme.of(context).brightness == Brightness.light
                     ? Colors.grey[200]
                     : const Color(0xFF121212),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
                 ),
               ),
             ),
@@ -133,7 +126,6 @@ class _SearchScreenState extends State<SearchScreen> {
                       },
                     );
                   }
-
                   return Center(
                     child: Text(
                       'Type something to search...',

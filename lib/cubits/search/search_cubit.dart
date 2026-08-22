@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'search_stare.dart';
-import '../../models/movie.dart';
-import '../../models/movie_model.dart';
+import 'search_state.dart';
+import 'package:movies_hub_app/models/movie.dart';
+import 'package:movies_hub_app/models/movie_model.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   final Service _service = Service();

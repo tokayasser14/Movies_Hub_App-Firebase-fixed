@@ -7,8 +7,8 @@ class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
-  final List popularMovies;
-  final List topRatedMovies;
+ final List<Movie> popularMovies;
+  final List<Movie> topRatedMovies;
 
   HomeLoaded({required this.popularMovies, required this.topRatedMovies});
 }

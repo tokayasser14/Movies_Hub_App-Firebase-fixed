@@ -189,7 +189,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     },
                   ),
                   const SizedBox(height: 30),
-                    BlocBuilder<ProfileCubit, ProfileState>(
+                  BlocBuilder<ProfileCubit, ProfileState>(
                     builder: (context, state) {
                       final cubit = context.read<ProfileCubit>();
                       final isFav = cubit.isFavorite(widget.movie);
@@ -259,7 +259,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       ),
                       onPressed: () => Navigator.pop(context),
                     ),
-                    
+
                     BlocBuilder<WatchlistCubit, WatchlistState>(
                       builder: (context, state) {
                         final cubit = context.read<WatchlistCubit>();

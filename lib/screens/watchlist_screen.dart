@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/watchlist/watchlist_cubit.dart';
-import '../cubits/watchlist/watchlist_state.dart';
+import 'package:movies_hub_app/cubits/watchlist/watchlist_cubit.dart';
+import 'package:movies_hub_app/cubits/watchlist/watchlist_state.dart';
 
 class WatchlistScreen extends StatelessWidget {
   const WatchlistScreen({super.key});
@@ -69,7 +69,7 @@ class WatchlistScreen extends StatelessWidget {
                   ),
                 ),
                 subtitle: Text(
-                  '★ ${movie.rating}',
+                  '★ ${movie.rating.toStringAsFixed(1)}',
                   style: const TextStyle(color: Colors.amber),
                 ),
                 trailing: IconButton(

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_hub_app/cubits/theme_cubit.dart';
-import '../cubits/home/home_cubit.dart';
-import '../models/movie.dart';
-import '../widgets/movie_card.dart';
+import 'package:movies_hub_app/cubits/home/home_cubit.dart';
+import 'package:movies_hub_app/widgets/movie_card.dart';
 import 'movie_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,10 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        elevation: 0,
         title: const Text(
           'Movies Hub',
           style: TextStyle(
@@ -36,17 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-    IconButton(
-      icon: Icon(
-        context.watch<ThemeCubit>().state == ThemeMode.dark
-            ? Icons.light_mode
-            : Icons.dark_mode,
-      ),
-      onPressed: () {
-        context.read<ThemeCubit>().toggleTheme();
-      },
-    ),
-  ],
+          IconButton(
+            icon: Icon(
+              context.watch<ThemeCubit>().state == ThemeMode.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+            ),
+            onPressed: () {
+              context.read<ThemeCubit>().toggleTheme();
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
@@ -55,12 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircularProgressIndicator(color: Colors.red),
             );
           } else if (state is HomeError) {
-            return Center(
-              child: Text(
-                state.message,
-                style: const TextStyle(color: Colors.white),
-              ),
-            );
+            return Center(child: Text(state.message));
           } else if (state is HomeLoaded) {
             if (state.popularMovies.isEmpty && state.topRatedMovies.isEmpty) {
               return const Center(
@@ -70,71 +63,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
             }
-            return SingleChildScrollView(
+            return GridView.builder(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Popular Movies',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.62,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 12,
-                        ),
-                    itemCount: state.popularMovies.length,
-                    itemBuilder: (context, index) {
-                      final movie = state.popularMovies[index];
-                      return MovieCard(
-                        title: movie['title'] ?? '',
-                        posterPath: movie['posterPath'] ?? '',
-                        rating: (movie['rating'] ?? 0.0).toDouble(),
-                        onTap: () {
-                          final selectedMovie = Movie(
-                            id: movie['id'] ?? 0,
-                            name: movie['title'] ?? movie['name'] ?? '',
-                            description:
-                                movie['overview'] ?? movie['description'] ?? '',
-                            ReleaseDate:
-                                movie['release_date'] ??
-                                movie['releaseDate'] ??
-                                '',
-                            rating:
-                                (movie['vote_average'] ??
-                                        movie['rating'] ??
-                                        0.0)
-                                    .toDouble(),
-                            posterPath:
-                                movie['poster_path'] ??
-                                movie['posterPath'] ??
-                                '',
-                          );
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  MovieDetailsScreen(movie: selectedMovie),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.62,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
               ),
+              itemCount: state.popularMovies.length,
+              itemBuilder: (context, index) {
+                final movie = state.popularMovies[index];
+
+                return MovieCard(
+                  title: movie.name,
+                  posterPath: movie.posterPath,
+                  rating: movie.rating,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MovieDetailsScreen(movie: movie),
+                      ),
+                    );
+                  },
+                );
+              },
             );
           }
           return const SizedBox.shrink();
